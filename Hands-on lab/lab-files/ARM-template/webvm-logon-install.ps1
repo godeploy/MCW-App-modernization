@@ -25,16 +25,10 @@ Wait-Install
 Write-Host "Installing App Service Migration Assistant..."
 Start-Process -file 'C:\AppServiceMigrationAssistant.msi ' -arg '/qn /l*v C:\asma_install.txt' -passthru | wait-process
 
-# Download and istall Microsoft Edge
-Invoke-WebRequest 'https://msedge.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/8ec28e1e-d2ae-4d26-b1e6-324aa5318db1/MicrosoftEdgeEnterpriseX64.msi' -OutFile 'C:\MicrosoftEdgeEnterpriseX64.msi'
-$msiArgs = @(
-    "/i"
-    "C:\MicrosoftEdgeEnterpriseX64.msi"
-    "/qn"
-    "/norestart"
-    "/L*v C:\edge-install-log.txt"
-)
-Start-Process msiexec.exe -ArgumentList $msiArgs -Wait -NoNewWindow
+# Install Edge
+Wait-Install
+Write-Host "Installing Edge..."
+Start-Process -file 'C:\MicrosoftEdgeEnterpriseX64.msi' -arg '/qn /l*v C:\edge_install.txt' -passthru | wait-process
 
 # Install .NET Core 3.1 SDK
 Wait-Install
